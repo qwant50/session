@@ -13,8 +13,9 @@ function sess_start()
     $path = ini_get('session.save_path');
 
     if (isset($_COOKIE[$cookieName])) {
-        $file_name = 'sess_' . $_COOKIE[$cookieName];
-        $buf = file_get_contents($path . DIRECTORY_SEPARATOR . $file_name);
+        $file = $path . DIRECTORY_SEPARATOR . 'sess_' . $_COOKIE[$cookieName];
+        if (!file_exists($file)) return false;
+        $buf = file_get_contents($file);
         sess_decode($buf);
     } else {
         $id = md5(uniqid(rand(),1));
@@ -72,7 +73,6 @@ function sess_decode($buf){
     $decoded_string = 'a:'.count($matches).':{'.$decoded_string.'}';
 
     $GLOBALS['_SESS'] = unserialize($decoded_string);
-    var_dump($GLOBALS['_SESS']);
     return true;
 
 };

@@ -16,7 +16,6 @@ require_once 'include/sess.php';
 sess_start();
 
 echo $_COOKIE['PHPSESSID'];
-//var_dump($_SESS);
 
 echo $_SESS["id"];
 $_SESS["id"] = 43;
